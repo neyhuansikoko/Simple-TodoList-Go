@@ -1,0 +1,50 @@
+{{define "list"}}
+{{template "header" .}}
+<section class="container-fluid bg-mistyrose py-5">
+    <div class="container col-lg-4 col-md-6 col-sm-8">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center ps-textinput pe-2">
+                <h1 class="mb-0 text-center">{{.ListTitle}}</h1>
+                <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#myModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                    </svg>
+                </button>
+            </div>
+            <form action="/submit" method="post">
+                <div class="input-group">
+                    <span class="input-group-text px-2 no-corner bg-lightyellow">✏</span>
+                    <input type="hidden" name="taskType" value="{{.TaskType}}">
+                    <input type="text" class="form-control bg-lightyellow no-corner py-2 ps-2" name="name" placeholder="Add new task">
+                    <input class="btn btn-secondary no-corner" type="submit" value="Save">
+                </div>
+            </form>
+            <ul class="list-group list-group-flush">
+                {{range .Tasks}}
+                    <li class="list-group-item list-group-item-action">
+                        <form action="/check" method="post">
+                            <div class="form-check">
+                                <input type="hidden" name="id" value="{{.ID.Hex}}">
+                                <input type="hidden" name="taskType" value="{{.TaskType}}">
+                                <input type="hidden" name="isDone" value="{{.IsDone}}">
+                                {{if .IsDone}}
+                                    <label class="form-check-label text-decoration-line-through">
+                                        <input class="form-check-input" type="checkbox" onchange="this.form.submit()" checked>
+                                        {{.Name}}
+                                    </label>
+                                {{else}}
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="checkbox" onchange="this.form.submit()">
+                                        {{.Name}}
+                                    </label>
+                                {{end}}
+                            </div>
+                        </form>
+                    </li>
+                {{end}}
+            </ul>
+        </div>
+    </div>
+</section>
+{{template "footer" .}}
+{{end}}

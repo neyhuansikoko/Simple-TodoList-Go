@@ -1,0 +1,20 @@
+.bg-mistyrose {
+    background-color: mistyrose;
+}
+
+.bg-lightyellow {
+    background-color: lightyellow;
+}
+
+.ps-textinput {
+    padding-left: 2.5rem;
+}
+
+.link-unstyled, .link-unstyled:link, .link-unstyled:hover {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.no-corner {
+    border-radius: 0 !important;
+}
